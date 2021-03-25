@@ -1,23 +1,13 @@
 package org.mycompany.db;
 
-import org.springframework.stereotype.Component;
+import org.mycompany.db.exception.WordDictionaryException;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-@Component
-public class WordDictionary {
-    Map<String, String> dictionary = new ConcurrentHashMap<>();
+public interface WordDictionary {
+    void save(String word, String definition);
 
-    public void save(String word, String definition) {
-        dictionary.put(word, definition);
-    }
+    String getDefinition(String word) throws WordDictionaryException;
 
-    public void get(String word) {
-        dictionary.get(word);
-    }
-
-    public void saveAll(Map<String, String> map) {
-        dictionary.putAll(map);
-    }
+    void saveAll(Map<String, String> map);
 }
