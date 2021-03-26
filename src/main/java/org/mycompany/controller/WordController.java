@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class WordController {
     private final WordDictionary wordDictionary;
@@ -17,5 +19,10 @@ public class WordController {
     @GetMapping("/getDescription")
     public String getDescription(@RequestParam String word) throws WordDictionaryException {
         return wordDictionary.getDefinition(word);
+    }
+
+    @GetMapping("/getAllWords")
+    public List<String> getAllWords(@RequestParam String word) throws WordDictionaryException {
+        return wordDictionary.getAllWordsFromWord(word);
     }
 }

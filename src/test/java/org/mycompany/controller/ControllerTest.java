@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -44,5 +46,27 @@ public class ControllerTest {
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(containsString(exceptionMessage)));
+    }
+
+    @Test
+    public void testGetAllWordWhenFindOneWord() throws Exception {
+        String word = "word";
+        when(service.getAllWordsFromWord(word)).thenReturn(Collections.singletonList("1"));
+
+        this.mockMvc.perform(get("/getAllWords").param(word, word))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("1")));
+    }
+
+    @Test
+    public void testGetAllWordWhenFindNoWord() throws Exception {
+        String word = "word";
+        when(service.getAllWordsFromWord(word)).thenReturn(Collections.emptyList());
+
+        this.mockMvc.perform(get("/getAllWords").param(word, word))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("[]")));
     }
 }
