@@ -21,4 +21,11 @@ public class CombinationUtilsTest {
         Assert.assertTrue(allCombinations.contains(new LettersArray(Lists.list('1', '2', '3'))));
     }
 
+    /**
+     * Ожидаем, что при обработке длинной строки не будет выброшено исключение.
+     */
+    @Test
+    public void test1() {
+        CombinationUtils.getAllCombinations("аовфжаоккщшщзецшгафмтмтябаьлввввввввввкщцшзушкцузщкшцзщуаолаомоывапролорпавйцукенгшщзхзждлорпавычсмитьбдлонекуаптьлшгнекуцывсмилщгшорвапва");
+    }
 }
