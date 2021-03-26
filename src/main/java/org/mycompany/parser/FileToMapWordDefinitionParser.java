@@ -22,7 +22,7 @@ public class FileToMapWordDefinitionParser {
             return reader.lines()
                     .map(PATTERN::matcher)
                     .filter(Matcher::find)
-                    .collect(Collectors.toMap(matcher -> matcher.group(1),
+                    .collect(Collectors.toMap(matcher -> matcher.group(1).toUpperCase(),
                             matcher -> matcher.group(3).trim(),
                             (value1, value2) -> value1));
         }
