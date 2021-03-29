@@ -23,7 +23,7 @@ public class LetterUtils {
     private static Map<Character, Integer> getMapFromCharArray(char[] letters) {
         Map<Character, Integer> map = new HashMap<>();
         for (Character letter : letters) {
-            if (map.computeIfPresent(letter, (k, v) -> v++) == null) {
+            if (map.computeIfPresent(letter, (k, v) -> ++v) == null) {
                 map.put(letter, 1);
             }
         }
