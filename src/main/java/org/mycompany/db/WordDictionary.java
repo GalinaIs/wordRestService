@@ -2,8 +2,8 @@ package org.mycompany.db;
 
 import org.mycompany.db.exception.WordDictionaryException;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface WordDictionary {
     void save(String word, String definition);
@@ -12,5 +12,5 @@ public interface WordDictionary {
 
     void saveAll(Map<String, String> map);
 
-    List<String> getAllWordsFromWord(String word);
+    Set<String> getAllWordsFromWord(String word);
 }

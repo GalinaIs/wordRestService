@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class WordController {
@@ -22,7 +23,7 @@ public class WordController {
     }
 
     @GetMapping("/getAllWords")
-    public List<String> getAllWords(@RequestParam String word) throws WordDictionaryException {
+    public Set<String> getAllWords(@RequestParam String word) {
         return wordDictionary.getAllWordsFromWord(word);
     }
 }

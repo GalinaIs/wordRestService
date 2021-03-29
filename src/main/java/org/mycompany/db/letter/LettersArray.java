@@ -1,9 +1,9 @@
 package org.mycompany.db.letter;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static org.mycompany.db.letter.LetterUtils.canGetOneWordFromAnother;
 
 public class LettersArray {
     private final char[] letters;
@@ -32,19 +32,7 @@ public class LettersArray {
         if (letters.length != that.letters.length) {
             return false;
         }
-        Map<Character, Integer> lettersThatWithFrequency = getMapFromCharArray(that.letters);
-        for (Character letter : letters) {
-            Integer frequency = lettersThatWithFrequency.get(letter);
-            if (frequency == null) {
-                return false;
-            }
-            if (frequency == 1) {
-                lettersThatWithFrequency.remove(letter);
-            } else {
-                lettersThatWithFrequency.put(letter, --frequency);
-            }
-        }
-        return lettersThatWithFrequency.isEmpty();
+        return canGetOneWordFromAnother(that.letters, letters, true);
     }
 
     @Override
@@ -61,15 +49,5 @@ public class LettersArray {
         return "LettersArray{" +
                 "letters=" + Arrays.toString(letters) +
                 '}';
-    }
-
-    private static Map<Character, Integer> getMapFromCharArray(char[] letters) {
-        Map<Character, Integer> map = new HashMap<>();
-        for (Character letter : letters) {
-            if (map.computeIfPresent(letter, (k, v) -> v++) == null) {
-                map.put(letter, 1);
-            }
-        }
-        return map;
     }
 }

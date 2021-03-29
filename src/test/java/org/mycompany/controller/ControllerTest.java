@@ -1,5 +1,6 @@
 package org.mycompany.controller;
 
+import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.Test;
 import org.mycompany.db.WordDictionary;
 import org.mycompany.db.exception.WordDictionaryException;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
+import java.util.HashSet;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -51,7 +53,7 @@ public class ControllerTest {
     @Test
     public void testGetAllWordWhenFindOneWord() throws Exception {
         String word = "word";
-        when(service.getAllWordsFromWord(word)).thenReturn(Collections.singletonList("1"));
+        when(service.getAllWordsFromWord(word)).thenReturn(new HashSet<String>(Collections.singletonList("1")));
 
         this.mockMvc.perform(get("/getAllWords").param(word, word))
                 .andDo(print())
@@ -62,7 +64,7 @@ public class ControllerTest {
     @Test
     public void testGetAllWordWhenFindNoWord() throws Exception {
         String word = "word";
-        when(service.getAllWordsFromWord(word)).thenReturn(Collections.emptyList());
+        when(service.getAllWordsFromWord(word)).thenReturn(Collections.emptySet());
 
         this.mockMvc.perform(get("/getAllWords").param(word, word))
                 .andDo(print())
