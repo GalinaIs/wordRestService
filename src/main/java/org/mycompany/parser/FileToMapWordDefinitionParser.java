@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class FileToMapWordDefinitionParser {
-    static final Pattern PATTERN = Pattern.compile("^([А-ЯЁ]+)([^А-ЯЁ1]*)([А-ЯЁ1].*)$");
+    static final Pattern PATTERN = Pattern.compile("^([А-ЯЁ]+)([^А-ЯЁ1:]+)([А-ЯЁ1:].*)$");
 
     public Map<String, String> parse(String fileName) throws IOException {
         InputStream resource = new ClassPathResource(fileName).getInputStream();
@@ -23,7 +23,13 @@ public class FileToMapWordDefinitionParser {
                     .map(PATTERN::matcher)
                     .filter(Matcher::find)
                     .collect(Collectors.toMap(matcher -> matcher.group(1).toUpperCase(),
-                            matcher -> matcher.group(3).trim(),
+                            matcher -> {
+                                String description = matcher.group(3);
+                                if (description.startsWith(":")) {
+                                    description = description.substring(1);
+                                }
+                                return description.trim();
+                            },
                             (value1, value2) -> value1));
         }
     }

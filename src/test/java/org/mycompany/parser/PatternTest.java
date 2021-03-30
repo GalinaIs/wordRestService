@@ -57,4 +57,11 @@ public class PatternTest {
         Matcher matcher = PATTERN.matcher(string);
         Assert.assertFalse(matcher.find());
     }
+
+    @Test
+    public void testTestWithColonSeparator() {
+        String string = "АВТОГЕННЫЙ, -ая, -ое: автогенная сварка, резка - то же, что газовая сварка, резка.";
+        Matcher matcher = PATTERN.matcher(string);
+        Assert.assertTrue(matcher.find());
+    }
 }
